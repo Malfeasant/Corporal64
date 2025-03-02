@@ -22,5 +22,8 @@ hs_err_pid*
 # vscode
 /.vscode
 
+# Eclipse litter
+/.settings
+
 # Maven shade plugin generates this
 /dependency-reduced-pom.xml
