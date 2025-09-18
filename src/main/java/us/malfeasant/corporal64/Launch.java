@@ -1,5 +1,7 @@
 package us.malfeasant.corporal64;
 
+import org.tinylog.Logger;
+
 /**
  * This is a hack- rather than starting the JavaFX app directly,
  * we launch this class that then calls main on the App class.
@@ -8,6 +10,7 @@ package us.malfeasant.corporal64;
  */
 public class Launch {
     public static void main(String[] args) {
+        Logger.debug("Running from Launch class.");
         App.main(args);
     }
 }
