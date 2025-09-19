@@ -5,5 +5,5 @@ module us.malfeasant.corporal64 {
     requires org.tinylog.api;
     requires org.tinylog.impl;
 
-    exports us.malfeasant.corporal64;
+    exports us.malfeasant.corporal64.ui;
 }
