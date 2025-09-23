@@ -3,6 +3,8 @@ package us.malfeasant.corporal64.ui;
 import java.util.IdentityHashMap;
 import java.util.Map;
 
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
@@ -18,8 +20,11 @@ import us.malfeasant.corporal64.control.Speed;
 class MenuContainer {
     final MenuBar menuBar;
     private final Map<Toggle, Speed> speedMap;
+    final ObjectProperty<Speed> speedProperty;
 
     MenuContainer() {
+        speedProperty = new SimpleObjectProperty<Speed>(Speed.STEP);
+        
         var exitItem = new MenuItem("Exit");
         var fileMenu = new Menu("File", null, exitItem);
 
@@ -31,6 +36,8 @@ class MenuContainer {
             item.setToggleGroup(group);
             speedMap.put(item, s);
             controlMenu.getItems().add(item);
+            // TODO seems like there should be a better way to do this with bindings...
+            item.setOnAction(e -> speedProperty.set(s));
         }
 
         var inspectMenu = new Menu("Inspect");
