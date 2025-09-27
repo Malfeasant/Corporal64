@@ -19,11 +19,11 @@ import us.malfeasant.corporal64.control.Speed;
  */
 class MenuContainer {
     final MenuBar menuBar;
-    private final Map<Toggle, Speed> speedMap;
+    private final Map<Speed, Toggle> speedMap;
     final ObjectProperty<Speed> speedProperty;
 
     MenuContainer() {
-        speedProperty = new SimpleObjectProperty<Speed>(Speed.STEP);
+        speedProperty = new SimpleObjectProperty<Speed>(Speed.PAUSE);
         
         var exitItem = new MenuItem("Exit");
         var fileMenu = new Menu("File", null, exitItem);
@@ -34,11 +34,16 @@ class MenuContainer {
         for (Speed s : Speed.values()) {
             var item = new RadioMenuItem(s.menuText);
             item.setToggleGroup(group);
-            speedMap.put(item, s);
+            speedMap.put(s, item);  // oops, had this backwards
             controlMenu.getItems().add(item);
             // TODO seems like there should be a better way to do this with bindings...
             item.setOnAction(e -> speedProperty.set(s));
         }
+
+        // when something external sets the speed property, set the check to match
+        speedProperty.subscribe(s -> {
+            group.selectToggle(speedMap.get(s));
+        });
 
         var inspectMenu = new Menu("Inspect");
 

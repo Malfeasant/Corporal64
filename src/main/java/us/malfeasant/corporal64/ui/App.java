@@ -13,7 +13,8 @@ public class App extends Application {
     @Override
     public void start(Stage stage) {
         var pane = new BorderPane();
-        pane.setTop(new MenuContainer().menuBar);
+        var menuContainer = new MenuContainer();
+        pane.setTop(menuContainer.menuBar);
         stage.setTitle("Corporal64");
         stage.setScene(new Scene(pane));
         stage.show();
