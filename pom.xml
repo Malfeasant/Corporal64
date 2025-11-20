@@ -7,10 +7,10 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.release>21</maven.compiler.release>
+        <maven.compiler.release>25</maven.compiler.release>
         <mainModuleClass>us.malfeasant.corporal64/us.malfeasant.corporal64.ui.App</mainModuleClass>
         <mainClass>us.malfeasant.corporal64.Launch</mainClass>
-        <javafx.version>21</javafx.version>
+        <javafx.version>25</javafx.version>
     </properties>
 
     <dependencies>
