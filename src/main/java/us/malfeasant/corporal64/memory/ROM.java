@@ -24,12 +24,15 @@ class ROM extends BusRider {
     @Override
     public int peek(int addr) {
         addr &= addrMask;
-        return bytes.peek(addr);
+        return bytes.get(addr);
     }
 
     @Override
     public void poke(int addr, int data) {
-        addr &= addrMask;
-        bytes.poke(addr, data);
+        // TODO this shouldn't happen to a ROM, but should we throw an
+        // exception, or just do nothing?
+        // actually, should we even use a byte array, or should we just
+        // use an ArrayView?  We might want to allow editing outside of
+        // emulation...
     }
 }

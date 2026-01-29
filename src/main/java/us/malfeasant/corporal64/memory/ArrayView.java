@@ -8,7 +8,7 @@ package us.malfeasant.corporal64.memory;
  *
  * @author Malfeasant
  */
-public class ArrayView implements Addressable {
+public class ArrayView {
     private final byte[] bytes;
     private final int length;
     private final int offset;
@@ -27,14 +27,12 @@ public class ArrayView implements Addressable {
         this.offset = offset;
     }
 
-    @Override
-    public int peek(int addr) {
+    public int get(int addr) {
         checkBounds(addr);
         return bytes[addr + offset & 0xff]; // otherwise we might get negatives
     }
 
-    @Override
-    public void poke(int addr, int data) {
+    public void set(int addr, int data) {
         checkBounds(addr);
         bytes[addr + offset] = (byte) data;
     }
