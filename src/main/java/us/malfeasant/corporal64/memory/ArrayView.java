@@ -13,11 +13,25 @@ public class ArrayView {
     private final int length;
     private final int offset;
 
+    /**
+     * Builds a new view with a new backing array
+     * @param length
+     */
     public ArrayView(int length) {
         this(new byte[length], length, 0);
     }
     
+    /**
+     * Builds a new view from an existing one, reusing its backing array
+     * All derived views must be no larger than the previous
+     * @param other another view whose backing array we will use
+     * @param length in bytes- capped at other view's end
+     * @param offset in bytes- limited to other view's range
+     */
     public ArrayView(ArrayView other, int length, int offset) {
+        if (offset >= other.length) throw new ArrayIndexOutOfBoundsException("Offset exceeds existing view length.");
+        if (offset < 0) throw new ArrayIndexOutOfBoundsException("Offset must be positive.");
+        length = Math.min(length, other.length - offset);
         this(other.bytes, length, offset);
     }
 
