@@ -29,13 +29,23 @@ public class ArrayView {
      * @param offset in bytes- limited to other view's range
      */
     public ArrayView(ArrayView other, int length, int offset) {
-        if (offset >= other.length) throw new ArrayIndexOutOfBoundsException("Offset exceeds existing view length.");
         if (offset < 0) throw new ArrayIndexOutOfBoundsException("Offset must be positive.");
+        offset = other.offset + offset;
+        if (offset >= other.length) throw new ArrayIndexOutOfBoundsException("Offset exceeds existing view length.");
         length = Math.min(length, other.length - offset);
         this(other.bytes, length, offset);
     }
 
+    /**
+     * Public constructors *should* make sure nothing is out of bounds, but just in case
+     * this will do a final check
+     * @param bytes the backing array
+     * @param length
+     * @param offset
+     */
     ArrayView(byte[] bytes, int length, int offset) {
+        if (offset < 0 || offset >= bytes.length) throw new ArrayIndexOutOfBoundsException("Offset out of range.");
+        if (length < 0 || length > bytes.length) throw new ArrayIndexOutOfBoundsException("Length out of range.");
         this.bytes = bytes;
         this.length = length;
         this.offset = offset;
@@ -53,7 +63,7 @@ public class ArrayView {
     
     private void checkBounds(int addr) {
         if (addr >= offset + length || addr < 0) {
-            throw new IllegalArgumentException();
+            throw new ArrayIndexOutOfBoundsException("Bounds check failed.");
         }
     }
 }
